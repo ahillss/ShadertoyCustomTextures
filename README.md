@@ -19,7 +19,6 @@ void((function(){
                 var f=fs[0];
                 var reader=new FileReader();
                 console.log('loading:'+escape(f.name));
-
                 reader.onload=(function(theFile){
                     return function(e){
                         var fil=document.getElementById('mySamplerFilter'+x);
