@@ -11,7 +11,11 @@ The easiest way to use this is to make a javascript link on your bookmark bar th
 void((function(){
     for(var x=0;x<4;x++){
         (function(x){
-            function handleFileSelect(evt){
+            var dz=document.getElementById('myUnitCanvas'+x);
+            var tt=document.getElementById('texture'+x);
+            
+
+            dz.addEventListener('drop',(function(evt){
                 evt.stopPropagation();
                 evt.preventDefault();
                 var fs=evt.dataTransfer.files;
@@ -34,19 +38,20 @@ void((function(){
                 })(f);
 
                 reader.readAsDataURL(f);
+            }),false);
 
-            }
-
-            function handleDragOver(evt){
+            dz.addEventListener('dragover',(function(evt){
                 evt.stopPropagation();
                 evt.preventDefault();
                 evt.dataTransfer.dropEffect='copy';
-            }
+                
+                tt.style["border-style"]="solid";
+                tt.style["border-color"]="blue";
+            }),false);
 
-            var dz=document.getElementById('myUnitCanvas'+x);
-            dz.addEventListener('dragover',handleDragOver,false);
-            dz.addEventListener('drop',handleFileSelect,false);
-
+            dz.addEventListener('dragover',(function(evt){
+                tt.style["border-style"]="none";
+            }),false);
         })(x);
     }
 })());
