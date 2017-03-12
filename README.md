@@ -29,16 +29,16 @@ void((function(){
                         var result=e.target.result;
                         var img=new Image();
                         img.src=result;
-                        var imgWidth2=nearestPow2(img.width);   
-                        var imgHeight2=nearestPow2(img.height);                        
-                        if(img.width!=imgWidth2||img.height!=imgHeight2) {
-                            console.log("resizing "+img.width+'=>'+imgWidth2+','+img.height+'=>'+imgHeight2);                            
+                        var imgPow2Width=nearestPow2(img.width);   
+                        var imgPow2Height=nearestPow2(img.height);                        
+                        if(img.width!=imgPow2Width||img.height!=imgPow2Height) {
+                            console.log('resizing '+img.width+'=>'+imgPow2Width+','+img.height+'=>'+imgPow2Height);                            
                             var canvas=document.createElement('canvas');                            
-                            var ctx=canvas.getContext("2d");
-                            canvas.width=imgWidth2;
-                            canvas.height=imgHeight2;
-                            ctx.clearRect(0,0,imgWidth2,imgHeight2);
-                            ctx.drawImage(img,0,0,imgWidth2,imgHeight2);
+                            var ctx=canvas.getContext('2d');
+                            canvas.width=imgPow2Width;
+                            canvas.height=imgPow2Height;
+                            ctx.clearRect(0,0,imgPow2Width,imgPow2Height);
+                            ctx.drawImage(img,0,0,imgPow2Width,imgPow2Height);
                             result=canvas.toDataURL();
                         }
                         gShaderToy.SetTexture(x,{
