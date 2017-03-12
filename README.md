@@ -2,9 +2,9 @@
 
 Allows client side textures to be temporarily loaded into a shadertoy project. It is done by executing the javascript below on the shadertoy project page. Then you can drag and drop an image file from your computer onto one of the texture preview slots to load it. 
 
-Note this only works for 2D textures, I haven't figured out how the shadertoy javascript loads cube maps.
+Note this only works for 2D textures, I haven't figured out the javascript for loading cube maps.
 
-The easiest way to use this is to make a javascript bookmark on the bookmark bar at the top. Follow [this link here](link.html) and the instructions to do so.
+The easiest way to use this is to make a javascript bookmark on your bookmark bar that can be clicked while viewing a shadertoy project. The [link here](http://andrewhills.github.io/ShadertoyCustomTextures/link.html) provides a javascript link that you can drag onto your bookmark bar.
 
 
 ```javascript
