@@ -12,16 +12,12 @@ void((function(){
     for(var x=0;x<4;x++){
         (function(x){
             var dz=document.getElementById('myUnitCanvas'+x);
-            var tt=document.getElementById('texture'+x);
-            
-
             dz.addEventListener('drop',(function(evt){
                 evt.stopPropagation();
                 evt.preventDefault();
                 var fs=evt.dataTransfer.files;
                 var f=fs[0];
                 var reader=new FileReader();
-
                 console.log('loading '+escape(f.name));
 
                 reader.onload=(function(theFile){
@@ -30,27 +26,17 @@ void((function(){
                         var wrp=document.getElementById('mySamplerWrap'+x);
                         var filVal=fil.options[fil.selectedIndex].value;
                         var wrpVal=wrp.options[wrp.selectedIndex].value;
-
                         gShaderToy.SetTexture(x,{
                             mSrc:e.target.result,mType:'texture',mID:1,
                             mSampler:{filter:filVal,wrap:wrpVal,vflip:'true',srgb:'false',internal:'byte'}});
                     }
                 })(f);
-
                 reader.readAsDataURL(f);
             }),false);
-
             dz.addEventListener('dragover',(function(evt){
                 evt.stopPropagation();
                 evt.preventDefault();
-                evt.dataTransfer.dropEffect='copy';
-                
-                tt.style["border-style"]="solid";
-                tt.style["border-color"]="blue";
-            }),false);
-
-            dz.addEventListener('dragover',(function(evt){
-                tt.style["border-style"]="none";
+                evt.dataTransfer.dropEffect='link';
             }),false);
         })(x);
     }
