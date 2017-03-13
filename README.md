@@ -9,6 +9,23 @@ The easiest way to use this is to make a javascript link on your bookmark bar th
 ```javascript
 void((function(){
     function nearestPow2(a){return Math.pow(2,Math.round(Math.log(a)/Math.log(2)));}
+    function resizePow2(result) {
+        var img=new Image();
+        img.src=result;
+        var imgPow2Width=nearestPow2(img.width);
+        var imgPow2Height=nearestPow2(img.height);
+        if(img.width!=imgPow2Width||img.height!=imgPow2Height) {
+            console.log('resizing '+img.width+'=>'+imgPow2Width+','+img.height+'=>'+imgPow2Height);
+            var canvas=document.createElement('canvas');
+            var ctx=canvas.getContext('2d');
+            canvas.width=imgPow2Width;
+            canvas.height=imgPow2Height;
+            ctx.clearRect(0,0,imgPow2Width,imgPow2Height);
+            ctx.drawImage(img,0,0,imgPow2Width,imgPow2Height);
+            return canvas.toDataURL();
+        }
+        return result;
+    }
     for(var x=0;x<4;x++){
         (function(x){
             var dz=document.getElementById('myUnitCanvas'+x);
@@ -26,20 +43,7 @@ void((function(){
                         var filVal=fil.options[fil.selectedIndex].value;
                         var wrpVal=wrp.options[wrp.selectedIndex].value;
                         var result=e.target.result;
-                        var img=new Image();
-                        img.src=result;
-                        var imgPow2Width=nearestPow2(img.width);   
-                        var imgPow2Height=nearestPow2(img.height);                        
-                        if(img.width!=imgPow2Width||img.height!=imgPow2Height) {
-                            console.log('resizing '+img.width+'=>'+imgPow2Width+','+img.height+'=>'+imgPow2Height);                            
-                            var canvas=document.createElement('canvas');                            
-                            var ctx=canvas.getContext('2d');
-                            canvas.width=imgPow2Width;
-                            canvas.height=imgPow2Height;
-                            ctx.clearRect(0,0,imgPow2Width,imgPow2Height);
-                            ctx.drawImage(img,0,0,imgPow2Width,imgPow2Height);
-                            result=canvas.toDataURL();
-                        }
+                        result=resizePow2(result);
                         gShaderToy.SetTexture(x,{
                             mSrc:result,mType:'texture',mID:1,
                             mSampler:{filter:filVal,wrap:wrpVal,vflip:'true',srgb:'false',internal:'byte'}});
@@ -55,4 +59,5 @@ void((function(){
         })(x);
     }
 })());
+
 ```
