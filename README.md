@@ -10,7 +10,7 @@ To load an image drag and drop it (either your computer or from the web) onto on
 3. use this Chrome extension
 
 ## Note
-* only works for 2D textures
+* works only for 2D textures
 * loading images from the web maybe blocked due to [cross-origin HTTP requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) not being allowed on their servers
 * saving a project after using a custom texture will result in it being replaced with one of the provided textures and the sampler settings resetted to their defaults
 
