@@ -2,7 +2,7 @@
 
 Temporarily load images to be into Shadertoy projects.
 
-To load an image drag and drop it from your computer or the web onto one of the texture preview slots.
+To load an image drag and drop it (either your computer or from the web) onto one of the texture preview slots.
 
 Warning saving a project after using a custom texture will result in it b eing replaced with one of the provided textures, and the sampler settings resetted to their defaults.
 
