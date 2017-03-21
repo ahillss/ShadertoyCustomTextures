@@ -1,6 +1,6 @@
 # Shadertoy Custom Textures
 
-Temporarily load images to be into Shadertoy projects.
+Allows you to temporarily load custom textures into Shadertoy projects.
 
 To load an image drag and drop it (either your computer or from the web) onto one of the texture preview slots.
 
