@@ -4,8 +4,6 @@ Allows you to temporarily load custom textures into Shadertoy projects.
 
 To load an image drag and drop it (either your computer or from the web) onto one of the texture preview slots.
 
-Note that saving a project after using a custom texture will result in it being replaced with one of the provided textures and the sampler settings resetted to their defaults.
-
 ## There are three ways to use this:
 1. run the script below in the javascript console
 2. create a [javascript bookmark](http://andrewhills.github.io/ShadertoyCustomTextures/bookmark.html)
@@ -13,7 +11,8 @@ Note that saving a project after using a custom texture will result in it being 
 
 ## Note
 * only works for 2D textures
-* many images on the web maybe blocked due to websites blocked due to [cross-origin HTTP requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) not being allowed on the servers.
+* loading images from the web maybe blocked due to [cross-origin HTTP requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) not being allowed on their servers
+* saving a project after using a custom texture will result in it being replaced with one of the provided textures and the sampler settings resetted to their defaults
 
 ## Source
 
