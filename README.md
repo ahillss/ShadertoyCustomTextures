@@ -1,55 +1,57 @@
 # Shadertoy Custom Textures
 
-Allows client side textures to be temporarily loaded into a shadertoy project. It is done by executing the javascript below on the shadertoy project page. Then you can drag and drop an image file from your computer onto one of the texture preview slots to load it. 
+Allows images from the user's computer or web address link to be temporarily loaded into Shadertoy projects. Either drag and drop an image (from your computer or the web) onto one of the texture preview slots to load it.
 
-Note this only works for 2D textures, I haven't figured out the javascript for loading cube maps. Any image that is not to the power of two will be resized to the nearest power of two size.
+### There are three ways to use this:
+1. run the script below in the javascript console
+2. create a [javascript bookmark](http://andrewhills.github.io/ShadertoyCustomTextures/bookmark.html)
+3. use this Chrome extension
 
-The easiest way to use this is to make a javascript link on your bookmark bar that can be clicked while viewing a shadertoy project. Follow the [link here](http://andrewhills.github.io/ShadertoyCustomTextures/link.html) for a javascript link that you can drag onto your bookmark bar.
+### Note
+* only works for 2D textures
+* many images on the web maybe blocked due to websites blocked due to [cross-origin HTTP requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) not being allowed on the servers.
+
+### Source
 
 ```javascript
+
 void((function(){
-    function nearestPow2(a){return Math.pow(2,Math.round(Math.log(a)/Math.log(2)));}
-    function resizePow2(result) {
-        var img=new Image();
-        img.src=result;
-        var imgPow2Width=nearestPow2(img.width);
-        var imgPow2Height=nearestPow2(img.height);
-        if(img.width!=imgPow2Width||img.height!=imgPow2Height) {
-            console.log('resizing '+img.width+'=>'+imgPow2Width+','+img.height+'=>'+imgPow2Height);
-            var canvas=document.createElement('canvas');
-            var ctx=canvas.getContext('2d');
-            canvas.width=imgPow2Width;
-            canvas.height=imgPow2Height;
-            ctx.clearRect(0,0,imgPow2Width,imgPow2Height);
-            ctx.drawImage(img,0,0,imgPow2Width,imgPow2Height);
-            return canvas.toDataURL();
-        }
-        return result;
-    }
+    function setTex(x,url) {
+        var fil=document.getElementById('mySamplerFilter'+x);
+        var wrp=document.getElementById('mySamplerWrap'+x);
+        var filVal=fil.options[fil.selectedIndex].value;
+        var wrpVal=wrp.options[wrp.selectedIndex].value;
+        var opt=document.getElementById('mySamplingButton'+x);
+        if(opt.style.visibility=='hidden') {
+            filVal='mipmap';
+            wrpVal='repeat';
+        };
+        gShaderToy.SetTexture(x,{
+            mSrc:url,mType:'texture',mID:1,
+            mSampler:{filter:filVal,wrap:wrpVal,vflip:'true',srgb:'false',internal:'byte'}});
+    };    
     for(var x=0;x<4;x++){
         (function(x){
             var dz=document.getElementById('myUnitCanvas'+x);
             dz.addEventListener('drop',(function(evt){
                 evt.stopPropagation();
                 evt.preventDefault();
-                var fs=evt.dataTransfer.files;
-                var f=fs[0];
-                var reader=new FileReader();
-                console.log('loading:'+escape(f.name));
-                reader.onload=(function(theFile){
-                    return function(e){
-                        var fil=document.getElementById('mySamplerFilter'+x);
-                        var wrp=document.getElementById('mySamplerWrap'+x);
-                        var filVal=fil.options[fil.selectedIndex].value;
-                        var wrpVal=wrp.options[wrp.selectedIndex].value;
-                        var result=e.target.result;
-                        result=resizePow2(result);
-                        gShaderToy.SetTexture(x,{
-                            mSrc:result,mType:'texture',mID:1,
-                            mSampler:{filter:filVal,wrap:wrpVal,vflip:'true',srgb:'false',internal:'byte'}});
-                    }
-                })(f);
-                reader.readAsDataURL(f);
+                var text = evt.dataTransfer.getData('text');
+                if(text) {
+                    console.log('loading:'+text);
+                    setTex(x,text);
+                } else {
+                    var fs=evt.dataTransfer.files;
+                    var f=fs[0];
+                    var reader=new FileReader();
+                    console.log('loading:'+escape(f.name));
+                    reader.onload=(function(x){
+                        return (function(e){
+                            setTex(x,e.target.result);
+                        });
+                    })(x);
+                    reader.readAsDataURL(f);
+                }
             }),false);
             dz.addEventListener('dragover',(function(evt){
                 evt.stopPropagation();
@@ -57,7 +59,7 @@ void((function(){
                 evt.dataTransfer.dropEffect='link';
             }),false);
         })(x);
-    }
+    };
 })());
 
 ```
