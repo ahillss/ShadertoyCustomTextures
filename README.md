@@ -1,17 +1,17 @@
 # Shadertoy Custom Textures
 
-Allows images from the user's computer or web address link to be temporarily loaded into Shadertoy projects. Either drag and drop an image (from your computer or the web) onto one of the texture preview slots to load it.
+Temporarily load images to be into Shadertoy projects. To load an image drag and drop it from your computer or the web onto one of the texture preview slots.
 
-### There are three ways to use this:
+## There are three ways to use this:
 1. run the script below in the javascript console
 2. create a [javascript bookmark](http://andrewhills.github.io/ShadertoyCustomTextures/bookmark.html)
 3. use this Chrome extension
 
-### Note
+## Note
 * only works for 2D textures
 * many images on the web maybe blocked due to websites blocked due to [cross-origin HTTP requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) not being allowed on the servers.
 
-### Source
+## Source
 
 ```javascript
 
