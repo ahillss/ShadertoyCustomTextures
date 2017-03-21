@@ -7,7 +7,7 @@ To load an image drag and drop it (either your computer or from the web) onto on
 ## There are three ways to use this:
 1. run the script below in the javascript console
 2. create a [javascript bookmark](http://andrewhills.github.io/ShadertoyCustomTextures/bookmark.html)
-3. use this Chrome extension
+3. use this [Chrome extension](https://chrome.google.com/webstore/detail/shadertoy-custom-texures/jgeibpcndpjboeebilehgbpkopkgkjda)
 
 ## Note
 * works only for 2D textures
