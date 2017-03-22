@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0",
+  "version": "1.01",
   "name": "Shadertoy Custom Texures",
   "description": "Allows you to use custom textures in Shadertoy",
   "permissions": ["tabs", "*://*.shadertoy.com/*"],
