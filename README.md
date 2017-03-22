@@ -20,18 +20,16 @@ To load an image drag and drop it (either your computer or from the web) onto on
 
 void((function(){
     function setTex(x,url) {
-        var fil=document.getElementById('mySamplerFilter'+x);
-        var wrp=document.getElementById('mySamplerWrap'+x);
-        var filVal=fil.options[fil.selectedIndex].value;
-        var wrpVal=wrp.options[wrp.selectedIndex].value;
-        var opt=document.getElementById('mySamplingButton'+x);
-        if(opt.style.visibility=='hidden') {
-            filVal='mipmap';
-            wrpVal='repeat';
-        };
+		var inp=gShaderToy.mEffect.mPasses[gShaderToy.mActiveDoc].mInputs[x];
+		var tg=inp?inp.globject:null;
+		var wrpEnm=gShaderToy.mEffect.mRenderer.TEXWRP;
+		var filEnm=gShaderToy.mEffect.mRenderer.FILTER;
+		var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';
+		var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');
+		var flpStr=(tg&&!tg.mVFlip)?'false':'true';
         gShaderToy.SetTexture(x,{
             mSrc:url,mType:'texture',mID:1,
-            mSampler:{filter:filVal,wrap:wrpVal,vflip:'true',srgb:'false',internal:'byte'}});
+            mSampler:{filter:filStr,wrap:wrpStr,vflip:flpStr,srgb:'false',internal:'byte'}});
     };    
     for(var x=0;x<4;x++){
         (function(x){
