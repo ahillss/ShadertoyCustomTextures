@@ -20,13 +20,13 @@ To load an image drag and drop it (either your computer or from the web) onto on
 
 void((function(){
     function setTex(x,url) {
-		var inp=gShaderToy.mEffect.mPasses[gShaderToy.mActiveDoc].mInputs[x];
-		var tg=inp?inp.globject:null;
-		var wrpEnm=gShaderToy.mEffect.mRenderer.TEXWRP;
-		var filEnm=gShaderToy.mEffect.mRenderer.FILTER;
-		var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';
-		var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');
-		var flpStr=(tg&&!tg.mVFlip)?'false':'true';
+        var inp=gShaderToy.mEffect.mPasses[gShaderToy.mActiveDoc].mInputs[x];
+        var tg=inp?inp.globject:null;
+        var wrpEnm=gShaderToy.mEffect.mRenderer.TEXWRP;
+        var filEnm=gShaderToy.mEffect.mRenderer.FILTER;
+        var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';
+        var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');
+        var flpStr=(tg&&!tg.mVFlip)?'false':'true';
         gShaderToy.SetTexture(x,{
             mSrc:url,mType:'texture',mID:1,
             mSampler:{filter:filStr,wrap:wrpStr,vflip:flpStr,srgb:'false',internal:'byte'}});
