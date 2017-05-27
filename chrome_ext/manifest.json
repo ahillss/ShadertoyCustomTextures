@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
-  "version": "1.1",
+  "version": "1.2",
   "name": "Shadertoy Custom Texures",
   "description": "Allows you to use custom textures in Shadertoy",
   "permissions": ["tabs", "*://*.shadertoy.com/*"],
   "content_scripts": [{
-    "matches": ["*://*.shadertoy.com/view/*"],
+    "matches": ["*://*.shadertoy.com/view/*","*://*.shadertoy.com/new"],
     "run_at":"document_end",
     "js": ["inject.js"]
   }]

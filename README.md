@@ -12,7 +12,11 @@ To load an image drag and drop it (either your computer or from the web) onto on
 ## Note
 * works only for 2D textures
 * loading images from the web maybe blocked due to [cross-origin HTTP requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) not being allowed on their servers
-* saving a project after using a custom texture will result in it being replaced with one of the provided textures and the sampler settings resetted to their defaults
+
+## Updates
+* the texture filter and wrap settings are now read from the correct place
+* custom loaded textures now use the same ID as one from shadertoy.com, so you can save projects without issue
+* the "changes you made may not be saved" popup will now not be triggered when loading a custom texture over an existing texture
 
 ## Source
 
@@ -27,8 +31,10 @@ void((function(){
         var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';
         var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');
         var flpStr=(tg&&!tg.mVFlip)?'false':'true';
-        gShaderToy.SetTexture(x,{
-            mSrc:url,mType:'texture',mID:1,
+		var lastId=(inp!=null)?inp.mInfo.mID:'4dXGRn';
+		if(inp==null){gShaderToy.mNeedsSave=true;};
+		gShaderToy.mEffect.NewTexture(gShaderToy.mActiveDoc,x,{
+            mSrc:url,mType:'texture',mID:lastId,
             mSampler:{filter:filStr,wrap:wrpStr,vflip:flpStr,srgb:'false',internal:'byte'}});
     };    
     for(var x=0;x<4;x++){
