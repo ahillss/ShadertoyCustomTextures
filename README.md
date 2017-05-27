@@ -31,9 +31,9 @@ void((function(){
         var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';
         var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');
         var flpStr=(tg&&!tg.mVFlip)?'false':'true';
-		var lastId=(inp!=null)?inp.mInfo.mID:'4dXGRn';
-		if(inp==null){gShaderToy.mNeedsSave=true;};
-		gShaderToy.mEffect.NewTexture(gShaderToy.mActiveDoc,x,{
+        var lastId=(inp!=null)?inp.mInfo.mID:'4dXGRn';
+        if(inp==null){gShaderToy.mNeedsSave=true;};
+        gShaderToy.mEffect.NewTexture(gShaderToy.mActiveDoc,x,{
             mSrc:url,mType:'texture',mID:lastId,
             mSampler:{filter:filStr,wrap:wrpStr,vflip:flpStr,srgb:'false',internal:'byte'}});
     };    
