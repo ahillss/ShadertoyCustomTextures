@@ -1,4 +1,94 @@
-var text="void((function(){function setTex(x,url){var inp=gShaderToy.mEffect.mPasses[gShaderToy.mActiveDoc].mInputs[x];var tg=inp?inp.globject:null;var wrpEnm=gShaderToy.mEffect.mRenderer.TEXWRP;var filEnm=gShaderToy.mEffect.mRenderer.FILTER;var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');var flpStr=(tg&&!tg.mVFlip)?'false':'true';var lastId=(inp!=null)?inp.mInfo.mID:'4dXGRn';if(inp==null){gShaderToy.mNeedsSave=!0};gShaderToy.mEffect.NewTexture(gShaderToy.mActiveDoc,x,{mSrc:url,mType:'texture',mID:lastId,mSampler:{filter:filStr,wrap:wrpStr,vflip:flpStr,srgb:'false',internal:'byte'}})};for(var x=0;x<4;x++){(function(x){var dz=document.getElementById('myUnitCanvas'+x);dz.addEventListener('drop',(function(evt){evt.stopPropagation();evt.preventDefault();var text=evt.dataTransfer.getData('text');if(text){console.log('loading:'+text);setTex(x,text)}else{var fs=evt.dataTransfer.files;var f=fs[0];var reader=new FileReader();console.log('loading:'+escape(f.name));reader.onload=(function(x){return(function(e){setTex(x,e.target.result)})})(x);reader.readAsDataURL(f)}}),!1);dz.addEventListener('dragover',(function(evt){evt.stopPropagation();evt.preventDefault();evt.dataTransfer.dropEffect='link'}),!1)})(x)}})())";
+var text=`
+
+void((()=>{
+    function setTex(mimeType,x,url) {
+        var inp=gShaderToy.mEffect.mPasses[gShaderToy.mActiveDoc].mInputs[x];
+        var tg=inp?inp.globject:null;
+        var wrpEnm=gShaderToy.mEffect.mRenderer.TEXWRP;
+        var filEnm=gShaderToy.mEffect.mRenderer.FILTER;
+        var wrpStr=(tg&&tg.mWrap==wrpEnm.CLAMP)?'clamp':'repeat';
+        var filStr=(tg&&tg.mFilter==filEnm.LINEAR)?'linear':((tg&&tg.mFilter==filEnm.NONE)?'nearest':'mipmap');
+        var flpStr=(tg&&!tg.mVFlip)?'false':'true';
+        var id=(inp!=null)?inp.mInfo.mID:null;
+        var type=(inp!=null)?inp.mInfo.mType:'';
+        
+        if(mimeType.includes('audio') && type!='music'){
+            type='music';
+            id='4sXGzn';
+            wrpStr='clamp';
+            filStr='linear';
+            gShaderToy.mNeedsSave=true;
+        } else if(mimeType.includes('video') && type!='video'){
+            type='video';
+            id='4df3zn';
+            wrpStr='clamp';
+            filStr='linear';
+            flpStr='true';
+            gShaderToy.mNeedsSave=true;
+        } else if(mimeType.includes('image') && type!='texture'){
+            type='texture';
+            id='4dXGRn';
+            wrpStr='repeat';
+            filStr='mipmap';
+            flpStr='true';
+            gShaderToy.mNeedsSave=true;
+        };
+        
+        gShaderToy.mEffect.NewTexture(gShaderToy.mActiveDoc,x,{
+            mSrc:url,mType:type,mID:id,
+            mSampler:{filter:filStr,wrap:wrpStr,vflip:flpStr,srgb:'false',internal:'byte'}
+        });
+    };
+    
+    function getUrlType(url,cb) {
+        var xhttp=new XMLHttpRequest();
+        xhttp.open('HEAD',url);
+        
+        xhttp.onreadystatechange=()=>{
+            if(this.readyState==this.DONE){
+                cb(this.getResponseHeader('Content-Type'));
+            };
+        };
+        
+        xhttp.send();
+    };
+    
+    for(var x=0;x<4;x++){
+        ((x)=>{
+            var dz=document.getElementById('myUnitCanvas'+x);
+            
+            dz.addEventListener('drop',((evt)=>{
+                evt.stopPropagation();
+                evt.preventDefault();
+                var text = evt.dataTransfer.getData('text');
+                
+                if(text){
+                    console.log('url:'+text);
+                    
+                    getUrlType(text,(mimeType)=>{
+                        console.log('mime:'+mimeType);
+                        setTex(mimeType,x,text);
+                    });
+                } else {
+                    var f=evt.dataTransfer.files[0];
+                    var reader=new FileReader();
+                    console.log('url:'+escape(f.name));
+                    console.log('mime:'+f.type);
+                    reader.onload=((e)=>{setTex(f.type,x,e.target.result);});
+                    reader.readAsDataURL(f);
+                };
+            }),false);
+            
+            dz.addEventListener('dragover',((evt)=>{
+                evt.stopPropagation();
+                evt.preventDefault();
+                evt.dataTransfer.dropEffect='link';
+            }),false);
+        })(x);
+    };
+})());
+
+`;
 var code=document.createTextNode('(function(){'+text+'})();');
 var script=document.createElement('script');
 script.appendChild(code);
