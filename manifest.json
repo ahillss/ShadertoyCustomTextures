@@ -3,16 +3,14 @@
   "version": "1.4",
   "name": "Shadertoy Custom Texures",
   "description": "Allows custom 2D textures, music and videos to temporarily be used in Shadertoy",
-  "host_permissions": ["*://*.shadertoy.com/*"],
+  "host_permissions": [ "*://*.shadertoy.com/*" ],
   "content_scripts": [{
-    "matches": ["*://*.shadertoy.com/view/*","*://*.shadertoy.com/new"],
+    "matches": [ "*://*.shadertoy.com/view/*", "*://*.shadertoy.com/new" ],
     "run_at":"document_end",
-    "js": ["inject.js"]
+    "js": [ "inject.js" ]
   }],
-  "web_accessible_resources": [
-    {
-      "resources": [ "myscript.js" ],
-      "matches": ["*://*.shadertoy.com/*"]
-    }
-  ]
+  "web_accessible_resources": [{
+    "resources": [ "myscript.js" ],
+    "matches": [ "*://*.shadertoy.com/*" ]
+  }]
 }
