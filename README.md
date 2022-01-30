@@ -22,3 +22,4 @@ The source code can be found in the `inject.js` if you want to make a [javascrip
 * the "changes you made may not be saved" popup will now not be triggered when loading a custom texture over an existing texture
 * added support for audio and videos files
 * removed unnecessary tabs permission from manifest file
+* updated to manifest v3
