@@ -6,7 +6,7 @@ To load an image/audio/video file/link, drag and drop it (either your computer o
 
 Browser extensions available for [Chrome](https://chrome.google.com/webstore/detail/shadertoy-custom-texures/jgeibpcndpjboeebilehgbpkopkgkjda) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/shadertoy-custom-texures).
 
-The source code can be found in the `inject.js` if you want to make a [javascript bookmark](https://mrcoles.com/bookmarklet/).
+The source code can be found in the `myscript.js` if you want to make a [javascript bookmark](https://mrcoles.com/bookmarklet/).
 
 ## Note
 
@@ -22,4 +22,4 @@ The source code can be found in the `inject.js` if you want to make a [javascrip
 * the "changes you made may not be saved" popup will now not be triggered when loading a custom texture over an existing texture
 * added support for audio and videos files
 * removed unnecessary tabs permission from manifest file
-* updated to manifest v3
+* upgraded manifest to v3
