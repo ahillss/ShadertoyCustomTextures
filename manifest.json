@@ -11,6 +11,6 @@
   }],
   "web_accessible_resources": [{
     "resources": [ "myscript.js" ],
-    "matches": [ "*://*.shadertoy.com/*" ]
+    "matches": [ "<all_urls>" ]
   }]
 }
